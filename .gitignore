@@ -1,3 +1,4 @@
 .env
 .bash_history
 node_modules
+db.development.sqlite

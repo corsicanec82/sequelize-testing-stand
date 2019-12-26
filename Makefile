@@ -4,7 +4,7 @@ USER_ID := $(shell id -u)
 GROUP_ID := $(shell id -g)
 USERNAME := current
 
-setup: prepare compose-build compose-install
+setup: prepare compose-build compose-install compose-db-setup
 
 prepare:
 	touch .bash_history
@@ -22,6 +22,9 @@ compose-build:
 
 compose-install:
 	docker-compose run app make install
+
+compose-db-setup:
+	docker-compose run app make db-setup
 
 compose-lint:
 	docker-compose run app make lint
@@ -46,3 +49,6 @@ lint:
 
 test:
 	npm test
+
+db-setup:
+	npx sequelize db:migrate

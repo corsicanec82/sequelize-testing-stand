@@ -31,6 +31,11 @@
     "eslint-plugin-import": "^2.19.1",
     "eslint-plugin-jest": "^23.1.1",
     "jest": "^24.9.0",
-    "jest-cli": "^24.9.0"
+    "jest-cli": "^24.9.0",
+    "sequelize-cli": "^5.5.1"
+  },
+  "dependencies": {
+    "sequelize": "^5.21.3",
+    "sqlite3": "^4.1.1"
   }
 }
