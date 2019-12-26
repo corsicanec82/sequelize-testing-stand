@@ -61,7 +61,7 @@ describe('associations', () => {
     expect(tags).toEqual(selected);
 
     // it doesn't work
-    // await task.removeTags(updatedTags);
+    // await task.removeTags(tags);
     await task.removeTags(tags.map((tag) => [tag.id]));
     const actual = await task.getTags({ raw: true });
     const expected = [
