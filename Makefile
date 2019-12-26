@@ -4,7 +4,7 @@ USER_ID := $(shell id -u)
 GROUP_ID := $(shell id -g)
 USERNAME := current
 
-setup: prepare compose-build
+setup: prepare compose-build compose-install
 
 prepare:
 	touch .bash_history
@@ -20,6 +20,9 @@ compose-build:
 		--build-arg GROUP_ID=$(GROUP_ID) \
 		--build-arg USERNAME=$(USERNAME) \
 
+compose-install:
+	docker-compose run app make install
+
 compose:
 	docker-compose up
 
@@ -28,3 +31,6 @@ compose-bash:
 
 compose-kill:
 	docker-compose kill
+
+install:
+	npm install
