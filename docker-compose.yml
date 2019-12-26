@@ -1,0 +1,12 @@
+---
+
+version: '3'
+
+services:
+  app:
+    user: ${USER_ID}:${GROUP_ID}
+    image: ${IMAGE_ID}
+    build: .
+    volumes:
+      - .:/home/${USERNAME}/app
+      - .bash_history:/home/${USERNAME}/.bash_history
