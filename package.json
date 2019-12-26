@@ -19,5 +19,10 @@
   "bugs": {
     "url": "https://github.com/corsicanec82/sequelize-testing-stand/issues"
   },
-  "homepage": "https://github.com/corsicanec82/sequelize-testing-stand#readme"
+  "homepage": "https://github.com/corsicanec82/sequelize-testing-stand#readme",
+  "devDependencies": {
+    "@babel/cli": "^7.7.7",
+    "@babel/core": "^7.7.7",
+    "@babel/preset-env": "^7.7.7"
+  }
 }
