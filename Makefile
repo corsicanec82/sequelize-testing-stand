@@ -23,6 +23,12 @@ compose-build:
 compose-install:
 	docker-compose run app make install
 
+compose-lint:
+	docker-compose run app make lint
+
+compose-test:
+	docker-compose run app make test
+
 compose:
 	docker-compose up
 
@@ -34,3 +40,9 @@ compose-kill:
 
 install:
 	npm install
+
+lint:
+	npx eslint .
+
+test:
+	npm test
