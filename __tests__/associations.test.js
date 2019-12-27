@@ -19,12 +19,8 @@ describe('associations', () => {
     const tag5 = await Tag.create({ name: 'tag5' });
     const tag6 = await Tag.create({ name: 'tag6' });
 
-    await task1.addTag(tag1);
-    await task1.addTag(tag2);
-    await task1.addTag(tag3);
-    await task2.addTag(tag4);
-    await task2.addTag(tag5);
-    await task2.addTag(tag6);
+    await task1.addTags([tag1, tag2, tag3]);
+    await task2.addTag([tag4, tag5, tag6]);
 
     const actualTasks = await Task.findAll({ raw: true });
     const expectedTasks = [
@@ -49,20 +45,11 @@ describe('associations', () => {
     const task = await Task.findOne({ where: { title: 'task1' } });
 
     const tags = await task.getTags({
-      raw: true,
       where: {
         [Op.not]: { name: 'tag2' },
       },
     });
-    const selected = [
-      { id: 1, name: 'tag1', task_id: 1 },
-      { id: 3, name: 'tag3', task_id: 1 },
-    ];
-    expect(tags).toEqual(selected);
-
-    // it doesn't work
-    // await task.removeTags(tags);
-    await task.removeTags(tags.map((tag) => [tag.id]));
+    await task.removeTags(tags);
     const actual = await task.getTags({ raw: true });
     const expected = [
       { id: 2, name: 'tag2', task_id: 1 },
@@ -78,21 +65,8 @@ describe('associations', () => {
     const emptyTags = await task.getTags({ raw: true });
     expect(emptyTags).toEqual([]);
 
-    const tags = await Tag.findAll({
-      raw: true,
-      where: {
-        [Op.or]: [{ name: 'tag5' }, { name: 'tag6' }],
-      },
-    });
-    const selected = [
-      { id: 5, name: 'tag5', task_id: null },
-      { id: 6, name: 'tag6', task_id: null },
-    ];
-    expect(tags).toEqual(selected);
-
-    // it doesn't work
-    // await task.setTags(tags);
-    await task.setTags(tags.map((tag) => [tag.id]));
+    const tags = await Tag.findAll({ where: { name: ['tag5', 'tag6'] } });
+    await task.setTags(tags);
     const actual = await task.getTags({ raw: true });
     const expected = [
       { id: 5, name: 'tag5', task_id: 2 },
